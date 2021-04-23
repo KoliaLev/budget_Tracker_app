@@ -5,7 +5,7 @@ const { Schema, model, Types } = require("mongoose");
 const schema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  links: [{ type: Types.ObjectId, ref: "link" }], // Types.ObjectId - особенный тип ID который определен
+  spendings: [{ type: Types.ObjectId, ref: "Spend" }], // Types.ObjectId - особенный тип ID который определен
   //   в монгоДБ (получается связка модели пользователя с определенными записями в базе данных)
   // ref: - у казываем к какой колекции мы привязываемся
 });

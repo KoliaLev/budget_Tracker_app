@@ -29,7 +29,7 @@ export const AuthPage = () => {
     try {
       const data = await request("/api/auth/login", "POST", { ...form });
       message(data.message);
-      auth.login(data.token, data.userID);
+      auth.login(data.token, data.userId, data.email);
     } catch (e) {}
   };
 
@@ -56,6 +56,7 @@ export const AuthPage = () => {
                     // placeholder="Введите email"
                     name="email"
                     onChange={changeHandler}
+                    value={form.email}
                   />
                   <label htmlFor="email">Email</label>
                 </div>
@@ -67,6 +68,7 @@ export const AuthPage = () => {
                     // placeholder="Введите пароль"
                     name="password"
                     onChange={changeHandler}
+                    value={form.password}
                   />
                   <label htmlFor="password">Password</label>
                 </div>

@@ -1,5 +1,6 @@
 {
     "port": 3001,
     "jwtSecret": "my secret key",
-    "mongoUri": "mongodb+srv://Mykola:zaq123@cluster0.gv4vc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    "mongoUri": "mongodb+srv://Mykola:zaq123@cluster0.gv4vc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "baseUrl": "http://localhost:3001"
 }

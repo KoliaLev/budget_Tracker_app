@@ -72,9 +72,9 @@ router.post(
         return res.status(400).json({ message: "неверный пароль" });
       }
       // создание токена авторизации
-      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), { expiresIn: "1h" });
+      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), { expiresIn: "1h" }); // { expiresIn: "1h" } - не реализован на фронте
       //
-      res.json({ token, userId: user.id, message: "успешно залогинен" }); // ответ
+      res.json({ token, userId: user.id, email: email, message: "успешно залогинен" }); // ответ
     } catch (e) {
       res.status(500).json({ message: "Упс, что то полшо не так" });
     }
