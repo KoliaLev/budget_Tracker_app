@@ -1,23 +1,25 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+// import { SpendContext } from "../../context/SpendContext";
 import { useApiRequest } from "../../hooks/apiRequest";
 
-const DaySpendings = () => {
+const DaySpendings = (props) => {
   const { token } = useContext(AuthContext);
   const { request, loading, error, clearError } = useApiRequest();
-  const [spends, setSpends] = useState([]);
+  // const [spends, setSpends] = useState([]);
 
   const getSpendings = useCallback(async () => {
     try {
       const fetchedSpends = await request("api/create/get", "GET", null, {
         authorization: `Beaer ${token}`,
       });
+
       console.log("траты ", fetchedSpends);
-      setSpends(fetchedSpends);
+      props.setSpends(fetchedSpends);
     } catch (e) {}
   }, [token, request]);
-  console.log("траты state ", spends);
-  useEffect(() => {
+
+  useEffect(async () => {
     getSpendings();
   }, [getSpendings]);
 
@@ -33,7 +35,7 @@ const DaySpendings = () => {
       </thead>
 
       <tbody>
-        {spends.map((s) => {
+        {props.spends.map((s) => {
           return (
             <tr>
               <td>{s.category}</td>
@@ -53,7 +55,7 @@ const DaySpendings = () => {
           </td>
           <td>
             <strong>
-              {spends.reduce((a, b) => {
+              {props.spends.reduce((a, b) => {
                 console.log(a);
                 return a + b.amount;
               }, 0)}
@@ -66,5 +68,12 @@ const DaySpendings = () => {
     </table>
   );
 };
+
+// const DaySpendingsContainer = connect(
+//   (state) => ({
+//     spends: state.daySpending.spends,
+//   }),
+//   { setSpends }
+// )(DaySpendings);
 
 export default DaySpendings;

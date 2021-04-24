@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { SpendContext } from "../../context/SpendContext";
 import { useApiRequest } from "../../hooks/apiRequest";
+import { setSpends } from "../../redux/spending-reduser";
 
-const SpendInputs = () => {
+const SpendInputs = (props) => {
+  const s = useContext(SpendContext); // берем с контекста счетчик обновления
   const auth = useContext(AuthContext);
-  console.log("spendInp", auth.token);
   const { request, loading, error, clearError } = useApiRequest();
   const [form, setForm] = useState({
     category: "",
@@ -28,6 +30,21 @@ const SpendInputs = () => {
           { authorization: `Beaer ${auth.token}` }
         );
         console.log(data);
+        if (data.statusCode === 1) {
+          console.log(props.spends);
+
+          const newSpends = props.spends.some((spend) => spend.category === data.spend.category)
+            ? props.spends.map((spend) => {
+                if (spend.category === data.spend.category) {
+                  return { ...spend, amount: data.spend.amount };
+                } else {
+                  return { ...spend };
+                }
+              })
+            : [...props.spends, data.spend];
+
+          props.setSpends(newSpends);
+        }
       } catch (e) {}
     }
   };

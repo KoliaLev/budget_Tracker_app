@@ -35,7 +35,7 @@ router.post("/add", auth, async (req, res) => {
         }
       );
       // console.log("изменено ", existing);
-      return res.json({ spend: upd, message: "успешно обновлен" });
+      return res.json({ spend: upd, message: "успешно обновлен", statusCode: 1 });
     }
 
     const spend = new Spend({
@@ -46,9 +46,9 @@ router.post("/add", auth, async (req, res) => {
     });
     console.log(spend);
     await spend.save();
-    res.status(201).json({ spend, message: "трата записана в базу" });
+    res.status(201).json({ spend, message: "трата записана в базу", statusCode: 1 });
   } catch (e) {
-    res.status(500).json({ message: "Упс, что то полшо не так", e });
+    res.status(500).json({ message: "Упс, что то полшо не так", e, statusCode: 0 });
   }
 });
 

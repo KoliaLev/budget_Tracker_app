@@ -25,7 +25,7 @@ const NavBar = () => {
           </li>
           <li>
             <a href="collapsible.html" onClick={logoutHandler}>
-              Выйти
+              Exit
             </a>
           </li>
         </ul>
