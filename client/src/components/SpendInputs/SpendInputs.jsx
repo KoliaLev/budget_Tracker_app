@@ -25,7 +25,7 @@ const SpendInputs = (props) => {
           {
             category: form.category,
             amount: form.amount,
-            date: new Date(),
+            date: props.date,
           },
           { authorization: `Beaer ${auth.token}` }
         );

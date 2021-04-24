@@ -7,21 +7,28 @@ const DaySpendings = (props) => {
   const { token } = useContext(AuthContext);
   const { request, loading, error, clearError } = useApiRequest();
   // const [spends, setSpends] = useState([]);
+  let date = props.date;
+  date.setHours(12);
 
   const getSpendings = useCallback(async () => {
     try {
-      const fetchedSpends = await request("api/create/get", "GET", null, {
-        authorization: `Beaer ${token}`,
-      });
+      const fetchedSpends = await request(
+        `api/create/get?date=${date.toISOString()}`,
+        "GET",
+        null,
+        {
+          authorization: `Beaer ${token}`,
+        }
+      );
 
       console.log("траты ", fetchedSpends);
       props.setSpends(fetchedSpends);
     } catch (e) {}
-  }, [token, request]);
+  }, [token, request, props.date]);
 
   useEffect(async () => {
     getSpendings();
-  }, [getSpendings]);
+  }, [props.date]);
 
   return (
     <table>
@@ -29,7 +36,7 @@ const DaySpendings = (props) => {
         <tr>
           <th>Category</th>
           <th>Amout</th>
-          <th></th>
+          <th>{props.date.toLocaleDateString()}</th>
           <th></th>
         </tr>
       </thead>
@@ -56,7 +63,6 @@ const DaySpendings = (props) => {
           <td>
             <strong>
               {props.spends.reduce((a, b) => {
-                console.log(a);
                 return a + b.amount;
               }, 0)}
             </strong>

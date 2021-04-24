@@ -9,7 +9,9 @@ import SpendInputs from "../components/SpendInputs/SpendInputs";
 
 export const CreatePage = () => {
   const [spends, setSpends] = useState([]);
+  const [date, setDate] = useState(new Date());
 
+  console.log(date);
   return (
     // <SpendContext.Provider value={{ getSpendings, countUpdate }}>
     <div className="container ">
@@ -18,15 +20,15 @@ export const CreatePage = () => {
       </div>
       <div className="row">
         <div className="grid-example col s12 m6 ">
-          <MyCalendar />
+          <MyCalendar date={date} setDate={setDate} />
         </div>
         <div className="grid-example col s12 m6 light-green lighten-4 li">
-          <SpendInputs spends={spends} setSpends={setSpends} />
+          <SpendInputs spends={spends} setSpends={setSpends} date={date} />
         </div>
       </div>
       <div className="row">
         <div className="grid-example col s12 grey lighten-4">
-          <DaySpendings spends={spends} setSpends={setSpends} />
+          <DaySpendings spends={spends} setSpends={setSpends} date={date} />
         </div>
       </div>
     </div>
