@@ -20,10 +20,6 @@ router.post("/add", auth, async (req, res) => {
     const { category, amount, userId } = req.body;
 
     const date = new Date(req.body.date);
-    date.setHours(12);
-    date.setMinutes(0);
-    date.setSeconds(0);
-    date.setMilliseconds(0);
 
     const existing = await Spend.findOne({ category, owner: req.user.userId, date: date }); // ищем в базе нет ли уже записи с таким именем и в указаной дате
 
@@ -60,7 +56,28 @@ router.post("/add", auth, async (req, res) => {
 });
 
 // для редактирования трат
-router.post("/edit", async (req, res) => {});
+router.put("/edit", auth, async (req, res) => {
+  console.log("получаем данные для изменения: ", req.body);
+  console.log("получаем данные юзер: ", req.user.userId);
+
+  const date = new Date(req.body.date);
+  console.log(date);
+  try {
+    const updateSpend = await Spend.findOneAndUpdate(
+      { category: req.body.category, owner: req.user.userId, date: date },
+      { amount: req.body.amount },
+      { new: true },
+      function (err, result) {
+        // mongoose.disconnect();
+        if (err) return console.log(err);
+        // console.log("обновлено:", result);
+      }
+    );
+    res.json({ spend: updateSpend, message: "успешно отредактирован", statusCode: 1 });
+  } catch (e) {
+    res.status(500).json({ e, message: "Упс, что то полшо не так при попытке апдейта" });
+  }
+});
 
 // для получения всех трат за день
 router.get(`/get`, auth, async (req, res) => {
@@ -69,16 +86,12 @@ router.get(`/get`, auth, async (req, res) => {
   console.log(req.query.date);
 
   let date = new Date(req.query.date);
-  date.setHours(12);
-  date.setMinutes(0);
-  date.setSeconds(0);
-  date.setMilliseconds(0);
 
   try {
     const spendsPerDay = await Spend.find({
       owner: req.user.userId,
       date: date,
-    }); //??? добавить в поиск парам по дате
+    });
     res.json(spendsPerDay);
   } catch (e) {
     res.status(500).json({ message: "Упс, что то полшо не так" });

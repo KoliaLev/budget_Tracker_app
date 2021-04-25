@@ -18,6 +18,9 @@ const SpendInputs = (props) => {
 
   const addSpendHandler = async () => {
     if (form.amount && form.category) {
+      let date = props.date;
+      date.setHours(12);
+      date = date.toISOString().slice(0, 10);
       try {
         const data = await request(
           "api/create/add",
@@ -25,9 +28,9 @@ const SpendInputs = (props) => {
           {
             category: form.category,
             amount: form.amount,
-            date: props.date,
+            date: date,
           },
-          { authorization: `Beaer ${auth.token}` }
+          { authorization: `mykola ${auth.token}` }
         );
         console.log(data);
         if (data.statusCode === 1) {
