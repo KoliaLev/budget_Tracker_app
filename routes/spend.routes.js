@@ -87,6 +87,16 @@ router.get(`/get`, auth, async (req, res) => {
 });
 
 //для удаления трат
-router.delete("/", async (req, res) => {});
+router.delete("/delete", async (req, res) => {
+  console.log("body: ", req.body);
+  console.log("query: ", req.query);
+
+  try {
+    const deleteSpend = await Spend.deleteOne({ _id: req.query.id });
+    res.json({ message: "сервер: успешно удалено" });
+  } catch (e) {
+    res.status(500).json({ message: "Упс, что то полшо не так  при попытке удаления" });
+  }
+});
 
 module.exports = router;

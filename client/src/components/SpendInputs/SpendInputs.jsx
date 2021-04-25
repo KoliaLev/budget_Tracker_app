@@ -10,7 +10,7 @@ const SpendInputs = (props) => {
   const { request, loading, error, clearError } = useApiRequest();
   const [form, setForm] = useState({
     category: "",
-    amount: null,
+    amount: "",
   });
   const onChangeHadler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
