@@ -8,6 +8,10 @@ export const useApiRequest = () => {
     setLoading(true);
     try {
       if (body) {
+        if (body.date) {
+          body.date.setHours(12);
+          body.date = body.date.toISOString().slice(0, 10);
+        }
         body = JSON.stringify(body);
         headers["Content-Type"] = "application/json";
       }

@@ -16,7 +16,7 @@ const NavBar = () => {
   return (
     <nav>
       <div className="nav-wrapper grey lighten-1">
-        <span className="brand-logo">Budget Tracker App</span>
+        <span className="brand-logo">Budget Tracker</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
             <span>{user}</span>

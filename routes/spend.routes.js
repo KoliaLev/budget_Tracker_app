@@ -20,7 +20,7 @@ router.post("/add", auth, async (req, res) => {
     const { category, amount, userId } = req.body;
 
     const date = new Date(req.body.date);
-
+    console.log(date);
     const existing = await Spend.findOne({ category, owner: req.user.userId, date: date }); // ищем в базе нет ли уже записи с таким именем и в указаной дате
 
     if (existing) {
@@ -28,7 +28,7 @@ router.post("/add", auth, async (req, res) => {
       // console.log("category", category, "amount", amount, "userId", userId);
       // return res.json({ spend: existing });
       const upd = await Spend.findOneAndUpdate(
-        { category: category, owner: req.user.userId },
+        { category: category, owner: req.user.userId, date: date },
         { category: category, owner: req.user.userId, amount: +amount + +existing.amount },
         { new: true },
         function (err, result) {

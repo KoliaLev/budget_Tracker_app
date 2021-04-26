@@ -1,0 +1,55 @@
+#spending_table {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s;
+  transition: all 1s ease-out;
+}
+
+#spending_table * {
+  font-size: 1.3rem;
+}
+
+#spending_table div {
+  margin-bottom: 2px;
+}
+
+#my_input {
+  width: 30%;
+}
+
+#spending_table div div button {
+  display: inline;
+  width: -moz-fit-content;
+  width: fit-content;
+  /* height: 20px; */
+  outline: none;
+  background-color: #dcedc8;
+  box-shadow: 0px 0px 4px 1px #96c096;
+  border: 1px solid #a4bfa4;
+  border-radius: 3px;
+  padding: 2px;
+  margin: 0px;
+  margin-right: 3px;
+  font-size: 1rem;
+}
+
+#spending_table div div button:hover {
+  background-color: #c3e69d;
+}
+
+@-webkit-keyframes animatezoom {
+  from {
+    -webkit-transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes animatezoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

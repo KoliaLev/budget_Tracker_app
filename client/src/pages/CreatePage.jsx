@@ -27,7 +27,7 @@ export const CreatePage = () => {
         </div>
       </div>
       <div className="row">
-        <div className="grid-example col s12 grey lighten-4">
+        <div className="grid-example col s12 grey lighten-5">
           <DaySpendings spends={spends} setSpends={setSpends} date={date} />
         </div>
       </div>

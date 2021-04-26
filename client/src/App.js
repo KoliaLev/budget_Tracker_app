@@ -3,8 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import { useRoutes } from "./pages/routes";
 import { useAuth } from "./hooks/authHook";
 import { AuthContext } from "./context/AuthContext";
-import { Provider } from "react-redux";
-import store from "./redux/redux-store";
 
 function App() {
   const { token, login, logout, userId, email } = useAuth();
