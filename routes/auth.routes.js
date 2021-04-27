@@ -49,8 +49,8 @@ router.post(
 router.post(
   "/login",
   [
-    check("email", "введите коректный email").normalizeEmail().isEmail(),
-    check("password", "ведите пароль").exists(),
+    check("email", "not a valid email").normalizeEmail().isEmail(),
+    check("password", "enter password").exists(),
   ],
   async (req, res) => {
     try {
@@ -58,23 +58,23 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: "некоректные данные при авторизации",
+          message: "incorrect data during authorization",
         });
       }
 
       const { email, password } = req.body;
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(400).json({ message: "пользователь ненайден" });
+        return res.status(400).json({ message: "user not found" });
       }
       const isMatch = await bcrypt.compare(password, user.password); // сравнение пароля который пришел с паролем в базе
       if (!isMatch) {
-        return res.status(400).json({ message: "неверный пароль" });
+        return res.status(400).json({ message: "invalid password" });
       }
       // создание токена авторизации
       const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), { expiresIn: "1h" }); // { expiresIn: "1h" } - не реализован на фронте
       //
-      res.json({ token, userId: user.id, email: email, message: "успешно залогинен" }); // ответ
+      res.json({ token, userId: user.id, email: email, message: `Hello, ${email} ` }); // ответ
     } catch (e) {
       res.status(500).json({ message: "Упс, что то полшо не так" });
     }

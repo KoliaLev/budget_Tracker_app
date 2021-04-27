@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useHistory } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
+import style from "./Navbar.module.css";
 
 const NavBar = () => {
   const history = useHistory();
@@ -27,6 +28,9 @@ const NavBar = () => {
             </a>
           </li>
         </ul>
+        <a id={style.exit} href="collapsible.html" onClick={logoutHandler}>
+          Exit
+        </a>
       </div>
     </nav>
   );

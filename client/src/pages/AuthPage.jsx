@@ -44,7 +44,7 @@ export const AuthPage = () => {
         <h2> Budget Tracker</h2>
         <div className="card grey lighten-2">
           <div className="card-content white-text">
-            <span className="card-title grey-text text-darken-3">Авторизация</span>
+            <span className="card-title grey-text text-darken-3">Authorization </span>
 
             <div>
               <div className="input-field">

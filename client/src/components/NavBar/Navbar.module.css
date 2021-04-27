@@ -1,0 +1,12 @@
+#exit {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  #exit {
+    display: inline;
+    position: absolute;
+    right: 5px;
+    top: 1px;
+  }
+}
