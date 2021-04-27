@@ -20,7 +20,9 @@ export const CreatePage = () => {
       </div>
       <div className="row">
         <div className="grid-example col s12 m6 ">
-          <MyCalendar date={date} setDate={setDate} />
+          <div className="row">
+            <MyCalendar date={date} setDate={setDate} />
+          </div>
         </div>
         <div className="grid-example col s12 m6 light-green lighten-4 li">
           <SpendInputs spends={spends} setSpends={setSpends} date={date} />

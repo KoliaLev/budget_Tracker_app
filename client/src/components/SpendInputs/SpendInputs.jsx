@@ -1,12 +1,10 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { SpendContext } from "../../context/SpendContext";
 import { useApiRequest } from "../../hooks/apiRequest";
 
 const SpendInputs = (props) => {
-  const s = useContext(SpendContext); // берем с контекста счетчик обновления
   const auth = useContext(AuthContext);
-  const { request, loading, error, clearError } = useApiRequest();
+  const { request } = useApiRequest();
   const [form, setForm] = useState({
     category: "",
     amount: "",

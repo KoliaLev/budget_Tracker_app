@@ -16,6 +16,14 @@
   width: 30%;
 }
 
+#spending_table div div input {
+  width: 80%;
+  height: 20px;
+  padding: 0px;
+  margin: 0px;
+  font-size: inherit;
+}
+
 #spending_table div div button {
   display: inline;
   width: -moz-fit-content;
@@ -34,6 +42,7 @@
 
 #spending_table div div button:hover {
   background-color: #c3e69d;
+  cursor: pointer;
 }
 
 @-webkit-keyframes animatezoom {

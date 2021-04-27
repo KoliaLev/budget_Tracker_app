@@ -8,7 +8,7 @@ const OneSpendRow = (props) => {
         {" "}
         {props.editModeSpend && props.spend.category === props.updateSpend.category ? (
           <input
-            //   id={s.my_input}
+           
             autoFocus={true}
             onFocus={(e) => e.target.select()}
             onChange={props.updateSpendAmountHandler}
@@ -22,7 +22,7 @@ const OneSpendRow = (props) => {
       <div className="grid-example col s1   flow-text">
         {" "}
         <button
-          // className="waves-effect  "
+          
           onClick={() => {
             props.delSpend(props.spend);
           }}>
@@ -33,20 +33,19 @@ const OneSpendRow = (props) => {
         {props.editModeSpend && props.spend.category === props.updateSpend.category ? (
           <>
             <button
-              // className="waves-effect waves-light btn-small"
+              
               onClick={() => props.setUpdateCategoryhadler(props.spend)}>
               Save
             </button>
             <button
-              // className="waves-effect waves-light btn-small"
+              
               onClick={() => props.setEditModeSpend(false)}>
               Cancel
             </button>
           </>
         ) : (
           <button
-            // className="waves-effect  "
-            // className="waves-effect waves-light btn-small"
+            
             onClick={() => {
               console.log(props.spend);
               props.editSpendHandler(props.spend);

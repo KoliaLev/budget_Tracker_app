@@ -7,7 +7,7 @@ import TotalAmountRow from "./RowForSpends/TotalAmountRow";
 
 const DaySpendings = (props) => {
   const { token } = useContext(AuthContext);
-  const { request, loading, error, clearError } = useApiRequest();
+  const { request } = useApiRequest();
   const [updateSpend, setUpdateSpend] = useState({});
   const [editModeSpend, setEditModeSpend] = useState(false);
 
