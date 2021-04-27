@@ -9,13 +9,13 @@ app.use(express.json({ extendet: true })); // мидлвэер для парси
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/create", require("./routes/spend.routes"));
 
-if (process.env.NODE_ENV === "prodaction") {
-  app.use("/", express.static(path.join(__dirname, "client", "build")));
+// if (process.env.NODE_ENV === "prodaction") {
+app.use("/", express.static(path.join(__dirname, "client", "build")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+// }
 
 const PORT = config.get("port") || 5000;
 // const PORT = process.env.PORT || config.get("port") || 3001;
