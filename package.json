@@ -4,7 +4,7 @@
   "description": "You can control your budget here",
   "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=prodaction node app.js",
+    "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm run start --prefix client",
     "client:install": "npm install --prefix client",
