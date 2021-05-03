@@ -1,8 +1,10 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useSpends } from "../../context/SpendContext";
 import { useApiRequest } from "../../hooks/apiRequest";
 
-const SpendInputs = (props) => {
+const SpendInputs = () => {
+  const { date, spends, setSpends } = useSpends();
   const auth = useContext(AuthContext);
   const { request } = useApiRequest();
   const [form, setForm] = useState({
@@ -25,25 +27,25 @@ const SpendInputs = (props) => {
           {
             category: form.category,
             amount: form.amount,
-            date: props.date,
+            date: date,
           },
           { authorization: `mykola ${auth.token}` }
         );
         console.log(data);
         if (data.statusCode === 1) {
-          console.log(props.spends);
+          console.log(spends);
 
-          const newSpends = props.spends.some((spend) => spend.category === data.spend.category)
-            ? props.spends.map((spend) => {
+          const newSpends = spends.some((spend) => spend.category === data.spend.category)
+            ? spends.map((spend) => {
                 if (spend.category === data.spend.category) {
                   return { ...spend, amount: data.spend.amount };
                 } else {
                   return { ...spend };
                 }
               })
-            : [...props.spends, data.spend];
+            : [...spends, data.spend];
 
-          props.setSpends(newSpends);
+          setSpends(newSpends);
           setForm({ category: "", amount: "" });
         }
       } catch (e) {}

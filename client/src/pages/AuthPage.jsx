@@ -1,4 +1,4 @@
-// import "materialize-css";
+import "materialize-css";
 
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";

@@ -7,6 +7,7 @@ import { AuthContext } from "./context/AuthContext";
 function App() {
   const { token, login, logout, userId, email } = useAuth();
   const isAuthenticated = !!token;
+  console.log("авторизован: ", isAuthenticated);
   const routes = useRoutes(isAuthenticated);
 
   return (

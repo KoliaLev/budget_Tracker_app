@@ -1,79 +1,19 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useSpends } from "../../context/SpendContext";
 import { useApiRequest } from "../../hooks/apiRequest";
 import style from "./day.module.css";
 import OneSpendRow from "./RowForSpends/OneSpendRow";
 import TotalAmountRow from "./RowForSpends/TotalAmountRow";
 
-const DaySpendings = (props) => {
-  const { token } = useContext(AuthContext);
-  const { request } = useApiRequest();
+const DaySpendings = () => {
+  const { date, spends, setSpends, getSpendings, editSpend, delSpend } = useSpends();
   const [updateSpend, setUpdateSpend] = useState({});
   const [editModeSpend, setEditModeSpend] = useState(false);
 
   useEffect(async () => {
     getSpendings();
-  }, [props.date]);
-
-  const getSpendings = useCallback(async () => {
-    try {
-      let date = props.date;
-      date.setHours(12);
-      date = date.toISOString().slice(0, 10);
-      const fetchedSpends = await request(`api/create/get?date=${date}`, "GET", null, {
-        authorization: `Beaer ${token}`,
-      });
-
-      console.log("получены траты ", fetchedSpends);
-      props.setSpends(fetchedSpends);
-    } catch (e) {}
-  }, [token, request, props.date]);
-
-  const delSpend = useCallback(
-    async (spend) => {
-      console.log("работал delSpend");
-      try {
-        const deleteSpend = await request(`api/create/delete?id=${spend._id}`, "DELETE", null, {
-          authorization: `Beaer ${token}`,
-        });
-        console.log("успешно удалено: ", deleteSpend);
-
-        const newListSpends = props.spends.filter((s) => s.category != spend.category);
-
-        props.setSpends(newListSpends);
-      } catch (e) {
-        console.log("ошибка при удалении: ", e);
-      }
-    },
-    [props.spends]
-  );
-
-  const editSpend = useCallback(
-    async (updateSpend) => {
-      console.log("работал editSpend передаем ", updateSpend);
-      try {
-        const editSpend = await request(
-          "api/create/edit",
-          "PUT",
-          {
-            category: updateSpend.category,
-            amount: updateSpend.amount,
-            date: props.date,
-          },
-          { authorization: `mykola ${token}` }
-        );
-        console.log("успешно обновлено: ", editSpend);
-      } catch (e) {
-        console.log("ошибка при апдейте: ", e);
-      }
-    },
-    [props.date]
-  );
-
-  //  для обработчиков апдейта одной траты
-  // const updateSpendCategoryHandler = (e) => {
-  //   setUpdateSpend({ ...updateSpend, category: e.tagret.value });
-  // };
+  }, [date]);
 
   const updateSpendAmountHandler = (e) => {
     setUpdateSpend({ ...updateSpend, amount: e.target.value });
@@ -82,10 +22,10 @@ const DaySpendings = (props) => {
   const setUpdateCategoryhadler = (spend) => {
     if (spend.amount != updateSpend.amount) {
       editSpend(updateSpend);
-      const newSpends = props.spends.map((s) =>
+      const newSpends = spends.map((s) =>
         s.category === updateSpend.category ? { ...s, amount: +updateSpend.amount } : s
       );
-      props.setSpends(newSpends);
+      setSpends(newSpends);
     }
     setEditModeSpend(false);
   };
@@ -110,7 +50,7 @@ const DaySpendings = (props) => {
         </div>
       </div>
 
-      {props.spends.map((s) => {
+      {spends.map((s) => {
         return (
           <OneSpendRow
             spend={s}
@@ -124,7 +64,7 @@ const DaySpendings = (props) => {
           />
         );
       })}
-      <TotalAmountRow spends={props.spends} />
+      <TotalAmountRow spends={spends} />
     </div>
   );
 };
