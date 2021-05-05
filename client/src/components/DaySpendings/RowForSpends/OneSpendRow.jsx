@@ -1,6 +1,6 @@
 const OneSpendRow = (props) => {
   return (
-    <div className="row" key={props.spend.category}>
+    <div className="row">
       <div className="grid-example col s4  light-green lighten-4 flow-text">
         {props.spend.category}
       </div>

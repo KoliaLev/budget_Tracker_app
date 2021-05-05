@@ -1,7 +1,5 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
 import { useSpends } from "../../context/SpendContext";
-import { useApiRequest } from "../../hooks/apiRequest";
 import style from "./day.module.css";
 import OneSpendRow from "./RowForSpends/OneSpendRow";
 import TotalAmountRow from "./RowForSpends/TotalAmountRow";
@@ -12,7 +10,7 @@ const DaySpendings = () => {
   const [editModeSpend, setEditModeSpend] = useState(false);
 
   useEffect(async () => {
-    getSpendings();
+    getSpendings(date);
   }, [date]);
 
   const updateSpendAmountHandler = (e) => {
@@ -53,6 +51,7 @@ const DaySpendings = () => {
       {spends.map((s) => {
         return (
           <OneSpendRow
+            key={s.category}
             spend={s}
             updateSpend={updateSpend}
             editModeSpend={editModeSpend}

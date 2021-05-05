@@ -13,9 +13,7 @@ function App() {
   return (
     <AuthContext.Provider value={{ token, login, logout, userId, email, isAuthenticated }}>
       <BrowserRouter>
-        {/* <Provider store={store}> */}
         <div className="container">{routes}</div>
-        {/* </Provider> */}
       </BrowserRouter>
     </AuthContext.Provider>
   );

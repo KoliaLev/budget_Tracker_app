@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useState } from "react";
-import { createContext } from "react";
 import { useApiRequest } from "../hooks/apiRequest";
 import { AuthContext } from "./AuthContext";
 
@@ -15,19 +14,22 @@ export const SpendProvider = ({ children }) => {
   const [date, setDate] = useState(new Date());
   console.log(date);
 
-  const getSpendings = useCallback(async () => {
-    try {
-      let dateReqwest = date;
-      dateReqwest.setHours(12);
-      dateReqwest = dateReqwest.toISOString().slice(0, 10);
-      const fetchedSpends = await request(`api/create/get?date=${dateReqwest}`, "GET", null, {
-        authorization: `Beaer ${token}`,
-      });
+  const getSpendings = useCallback(
+    async (date) => {
+      try {
+        let dateReqwest = date;
+        dateReqwest.setHours(12);
+        dateReqwest = dateReqwest.toISOString().slice(0, 10);
+        const fetchedSpends = await request(`api/create/get?date=${dateReqwest}`, "GET", null, {
+          authorization: `Beaer ${token}`,
+        });
 
-      console.log("получены траты ", fetchedSpends);
-      setSpends(fetchedSpends);
-    } catch (e) {}
-  }, [token, request, date]);
+        console.log("получены траты ", fetchedSpends);
+        setSpends(fetchedSpends);
+      } catch (e) {}
+    },
+    [token, request]
+  );
 
   const delSpend = useCallback(
     async (spend) => {
@@ -45,7 +47,7 @@ export const SpendProvider = ({ children }) => {
         console.log("ошибка при удалении: ", e);
       }
     },
-    [spends]
+    [token, request, spends]
   );
 
   const editSpend = useCallback(
@@ -67,7 +69,7 @@ export const SpendProvider = ({ children }) => {
         console.log("ошибка при апдейте: ", e);
       }
     },
-    [date]
+    [token, request, date]
   );
 
   return (
